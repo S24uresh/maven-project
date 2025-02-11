@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+    tools {
+        maven 'maven'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/S24uresh/maven-project.git'
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('sonar'){
+                     dir('/var/lib/jenkins/workspace/pipeline/website'){
+                        sh '''mvn clean verify sonar:sonar -Dsonar.projectKey=maven-project -Dsonar.projectName='maven-project' -Dsonar.host.url=http:54.166.196.8:9000'''
+                        sh 'mvn package'
+                         
+                    }
+                    
+                }
+            }
+        }
+    }
+}
