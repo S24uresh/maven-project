@@ -1,4 +1,6 @@
 FROM openjdk:8
 EXPOSE 8080
-ADD target/website-1.0-SNAPSHOT.war
-ENTRYPOINT ["java","-jar"]
+WORKDIR /usr/app
+ADD target/website-1.0-SNAPSHOT.war /usr/app/website.war
+ENTRYPOINT ["java", "-jar", "website.war"]
+
