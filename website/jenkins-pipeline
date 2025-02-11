@@ -21,6 +21,19 @@ pipeline {
                     
                 }
             }
+            
         }
-    }
+        stage('Create Image'){
+            steps{
+                script{
+                    dir('/var/lib/jenkins/workspace/pipeline/website'){
+                        sh 'docker build -t mvn-project .'
+                        
+                    }
+                    
+                    
+                }
+            }
+        }
+   }
 }
