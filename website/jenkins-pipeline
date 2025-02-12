@@ -34,6 +34,18 @@ pipeline {
                     
                 }
             }
+            stage('push'){
+            steps{
+                script{
+                    withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerlog')]) {
+                        
+                        sh 'docker login -u sureshaws22 -p ${dockerlog}'
+                    }
+                        sh 'docker push maven-project '
+                }
+            }
         }
+        }
+         
    }
 }
